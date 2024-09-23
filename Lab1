@@ -1,0 +1,79 @@
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class NumberOperations {
+
+    public static void main(String[] args) {
+
+        List<Number> numbers = new ArrayList<>();
+        
+        numbers.add((short) 10);
+        numbers.add(100L);
+        numbers.add(3.14f);
+        numbers.add(2.7182);
+        numbers.add(1234567890);
+        numbers.add((byte) 120);
+        
+        System.out.print("Початкові числа: [");
+        for (int i = 0; i < numbers.size(); i++) {
+            System.out.print(numbers.get(i));
+            if (i < numbers.size() - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+
+        System.out.print("\nЧисла у форматі цілих чисел: [");
+        for (int i = 0; i < numbers.size(); i++) {
+            Number num = numbers.get(i);
+            int intValue = (int) num.doubleValue();
+            System.out.print(intValue);
+            if (i < numbers.size() - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+
+        System.out.print("\nЧисла у форматі дробових чисел з 2 знаками після коми: [");
+        for (int i = 0; i < numbers.size(); i++) {
+            double doubleValue = Double.parseDouble(numbers.get(i).toString());
+            String formattedValue = String.format("%.2f", doubleValue);
+            System.out.print(formattedValue);
+            if (i < numbers.size() - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+
+        Map<Class<?>, List<Number>> typedNumbers = new HashMap<>();
+        for (Number num : numbers) {
+            Class<?> type = num.getClass();
+            if (!typedNumbers.containsKey(type)) {
+                typedNumbers.put(type, new ArrayList<>());
+            }
+            typedNumbers.get(type).add(num);
+        }
+
+        System.out.println("\nЧисла за типом:");
+        for (Map.Entry<Class<?>, List<Number>> entry : typedNumbers.entrySet()) {
+            System.out.print("Тип: " + entry.getKey().getSimpleName() + " [");
+            for (int i = 0; i < entry.getValue().size(); i++) {
+                System.out.print(entry.getValue().get(i));
+            }
+            System.out.println("]");
+        }
+
+        System.out.print("\nЧисла у форматі BigDecimal: [");
+        for (int i = 0; i < numbers.size(); i++) {
+            BigDecimal bigDecimal = new BigDecimal(numbers.get(i).toString());
+            System.out.print(bigDecimal);
+            if (i < numbers.size() - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]\n");
+    }
+}
